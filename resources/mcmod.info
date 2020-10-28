@@ -1,0 +1,16 @@
+[
+{
+  "modid": "parkourmod",
+  "name": "Parkour Mod",
+  "description": "This is a mod that adds many features to help with minecraft parkour",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["xleep"],
+  "credits": "Greg, for helping me set up a workplace",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
