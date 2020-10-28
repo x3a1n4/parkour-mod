@@ -12,6 +12,7 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import org.lwjgl.Sys;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -32,24 +33,29 @@ public class BarrierWarning {
             return;
 
         //see if the player is looking at barrier
+        //the "this.mc.theWorld.getBlockState(this.mc.objectMouseOver.getBlockPos()).getBlock().getRegistryName().equals("minecraft:barrier")" crashes the game
         this.lookingAtBarrier = false;
-        if (this.mc.objectMouseOver != null &&
-                this.mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK &&
-                this.mc.objectMouseOver.getBlockPos() != null &&
-                this.mc.theWorld.getBlockState(this.mc.objectMouseOver.getBlockPos()).getBlock().getRegistryName().equals("minecraft:barrier"))
-            this.lookingAtBarrier = true;
+        //do all this to avoid crashes
+        if (mc.objectMouseOver != null &&
+                mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK &&
+                mc.objectMouseOver.getBlockPos() != null &&
+                mc.theWorld != null){
+            if(mc.theWorld.getBlockState(mc.objectMouseOver.getBlockPos()).getBlock().getRegistryName().equals("minecraft:barrier")){
+                lookingAtBarrier = true;
+            }
+        }
     }
 
     public void renderOverlay(RenderGameOverlayEvent event) {
         if (event.type == RenderGameOverlayEvent.ElementType.TEXT) {
-            if (!this.mc.gameSettings.showDebugInfo) {
+            if (!mc.gameSettings.showDebugInfo) {
                 //if player is looking at barrier and barrier warning is enabled
-                if (this.lookingAtBarrier && Config.enabledBarrierWarning) {
+                if (lookingAtBarrier && Config.enabledBarrierWarning) {
                     //this draws an exclamation point in the top right of the screen
                     //this scales it so that the exclamation point is bigger
                     GlStateManager.scale(2.0F, 2.0F, 2.0F);
 
-                    this.renderer.drawString("\247c!", this.width / 2 - 3, 2, 1);
+                    renderer.drawString("\247c!", this.width / 2 - 3, 2, 1);
                     //scale it back down
                     GlStateManager.scale(0.5D, 0.5D, 0.5D);
                 }

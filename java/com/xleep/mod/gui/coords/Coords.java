@@ -14,12 +14,12 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
+import static com.xleep.mod.gui.DrawElement.drawCoordElement;
+
 public class Coords {
     Minecraft mc = Minecraft.getMinecraft();
 
     HHTimer hhTimer = new HHTimer();
-
-    DrawElement drawElement = new DrawElement();
 
     int width;
 
@@ -103,18 +103,18 @@ public class Coords {
             }
             if (!mc.gameSettings.showDebugInfo) {
                 //hh timer
-                drawElement.drawCoordElement(Config.locationHHTextX, Config.locationHHTextY, textTextColor + Config.hhFormat.replace("{hhms}", textNumberColor + hhms + textTextColor).replace("{hhTicks}", textNumberColor + hhTicks + textTextColor), 2);
+                drawCoordElement(Config.locationHHTextX, Config.locationHHTextY, textTextColor + Config.hhFormat.replace("{hhms}", textNumberColor + hhms + textTextColor).replace("{hhTicks}", textNumberColor + hhTicks + textTextColor), 2);
 
                 //facing
-                drawElement.drawCoordElement(Config.locationFacingTextX, Config.locationFacingTextY, textTextColor + "Facing: " + textNumberColor + facing + textTextColor + " (" + textNumberColor + direction + textTextColor + ")", 2);
+                drawCoordElement(Config.locationFacingTextX, Config.locationFacingTextY, textTextColor + "Facing: " + textNumberColor + facing + textTextColor + " (" + textNumberColor + direction + textTextColor + ")", 2);
 
                 //velocity
-                drawElement.drawCoordElement(Config.locationVelocityTextX, Config.locationVelocityTextY, textTextColor + "Velocity: " + textNumberColor + (Config.enabledBlocksPerSecond ? (df.format(v_xz * 20.0D) + textTextColor + " b/s") : (df.format(v_xz) + textTextColor + " b/t")), 2);
+                drawCoordElement(Config.locationVelocityTextX, Config.locationVelocityTextY, textTextColor + "Velocity: " + textNumberColor + (Config.enabledBlocksPerSecond ? (df.format(v_xz * 20.0D) + textTextColor + " b/s") : (df.format(v_xz) + textTextColor + " b/t")), 2);
 
                 //coords
-                drawElement.drawCoordElement(Config.locationXTextX, Config.locationXTextY, textTextColor + "X: " + textNumberColor + posX, 2);
-                drawElement.drawCoordElement(Config.locationYTextX, Config.locationYTextY, textTextColor + "Y: " + textNumberColor + posY, 2);
-                drawElement.drawCoordElement(Config.locationZTextX, Config.locationZTextY, textTextColor + "Z: " + textNumberColor + posZ, 2);
+                drawCoordElement(Config.locationXTextX, Config.locationXTextY, textTextColor + "X: " + textNumberColor + posX, 2);
+                drawCoordElement(Config.locationYTextX, Config.locationYTextY, textTextColor + "Y: " + textNumberColor + posY, 2);
+                drawCoordElement(Config.locationZTextX, Config.locationZTextY, textTextColor + "Z: " + textNumberColor + posZ, 2);
             }
         }
     }
