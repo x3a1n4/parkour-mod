@@ -7,113 +7,123 @@ import org.lwjgl.input.Mouse;
 import java.util.Date;
 
 public class HHTimer {
-    Minecraft mc = Minecraft.getMinecraft();
+    static Minecraft mc = Minecraft.getMinecraft();
 
-    public boolean state_keyForeward;
+    public static boolean state_keyForeward;
 
-    public boolean lastStateForeward;
+    public static boolean lastStateForeward;
 
-    public boolean lastStateJump;
+    public static boolean lastStateJump;
 
-    public boolean isLocked;
+    public static boolean isLocked;
 
-    public boolean state_keyForeward_ticks;
+    public static boolean state_keyForeward_ticks;
 
-    public boolean lastStateForeward_ticks;
+    public static boolean lastStateForeward_ticks;
 
-    public boolean lastStateJump_ticks;
+    public static boolean lastStateJump_ticks;
 
-    public boolean isLocked_ticks;
+    public static boolean isLocked_ticks;
 
-    private long ms;
+    private static long ms;
 
-    private long ticks;
+    private static long ticks;
 
-    public long finalTicks;
+    public static long finalTicks;
 
-    public long finalms;
+    public static long finalms;
 
-    public Date date = new Date();
+    public static Date date = new Date();
 
-    public boolean isKey(int id) {
+    public static boolean isKey(int id) {
         if (id < 0)
             return Mouse.isButtonDown(id + 100);
         return Keyboard.isKeyDown(id);
     }
 
     //every frame
-    public void onFrame() {
+    public static void onFrame() {
         if (Keyboard.isCreated()) {
             //if the forward key is down, uses the keyboard and not the game system
-            if (isKey(this.mc.gameSettings.keyBindForward.getKeyCode())) {
-                this.state_keyForeward = true;
+            if (isKey(mc.gameSettings.keyBindForward.getKeyCode())) {
+                state_keyForeward = true;
                 //if it wasn't pressed last time
-                if (!this.lastStateForeward) {
+                if (!lastStateForeward) {
                     //get the time
-                    this.date = new Date();
-                    this.isLocked = false;
+                    date = new Date();
+                    isLocked = false;
                 }
-                this.lastStateForeward = true;
+                lastStateForeward = true;
             } else {
-                //TODO: find out what this does
-                this.lastStateForeward = false;
+                lastStateForeward = false;
             }
 
             //if the jump key is pressed
-            if (isKey(this.mc.gameSettings.keyBindJump.getKeyCode())) {
+            if (isKey(mc.gameSettings.keyBindJump.getKeyCode())) {
                 //if the key is forward
-                if (this.state_keyForeward && !this.lastStateJump) {
-                    if (!this.isLocked) {
+                if (state_keyForeward && !lastStateJump) {
+                    if (!isLocked) {
                         long currentMillis = System.currentTimeMillis();
-                        this.ms = currentMillis - this.date.getTime();
-                        this.isLocked = true;
+                        ms = currentMillis - date.getTime();
+                        isLocked = true;
                     }
-                    this.state_keyForeward = false;
-                    this.lastStateJump = true;
+                    state_keyForeward = false;
+                    lastStateJump = true;
                 }
                 return;
             }
-            this.lastStateJump = false;
+            lastStateJump = false;
         }
     }
 
     //called every game tick
-    public void onTick() {
-        if (this.mc.gameSettings.keyBindForward.isKeyDown()) {
-            this.state_keyForeward_ticks = true;
+    public static void onTick() {
+        //if forward key is down
+        if (mc.gameSettings.keyBindForward.isKeyDown()) {
+            //set forward ticks to true
+            state_keyForeward_ticks = true;
 
             //if forward wasn't pressed last tick, then set ticks to 0
-            if (!this.lastStateForeward_ticks) {
-                this.ticks = 0L;
-                this.isLocked_ticks = false;
+            if (!lastStateForeward_ticks) {
+                ticks = 0L;
+                //this makes it count ticks
+                isLocked_ticks = false;
             }
-            this.lastStateForeward_ticks = true;
+
+            //set the last state forward to true
+            lastStateForeward_ticks = true;
         } else {
-            this.lastStateForeward_ticks = false;
+            //set the last state forward to false
+            lastStateForeward_ticks = false;
         }
-        if (this.mc.gameSettings.keyBindJump.isKeyDown()) {
-            if (this.state_keyForeward_ticks &&
-                    !this.lastStateJump_ticks) {
-                if (!this.isLocked_ticks) {
-                    this.finalTicks = this.ticks;
-                    this.finalms = this.ms;
-                    this.isLocked_ticks = true;
+        //if jump is pressed
+        if (mc.gameSettings.keyBindJump.isKeyDown()) {
+            //if ???
+            if (state_keyForeward_ticks && !lastStateJump_ticks) {
+                if (!isLocked_ticks) {
+                    finalTicks = ticks;
+                    finalms = ms;
+                    isLocked_ticks = true;
+                    //System.out.println(finalTicks);
+                    //System.out.println(finalms);
                 }
-                this.state_keyForeward_ticks = false;
-                this.lastStateJump_ticks = true;
+                state_keyForeward_ticks = false;
+                lastStateJump_ticks = true;
             }
         } else {
-            this.lastStateJump_ticks = false;
+            lastStateJump_ticks = false;
         }
-        this.ticks++;
+        ticks++;
     }
 
-    public long getMs() {
-        return this.finalms;
+    //often wrong
+    public static long getMs() {
+        return finalms;
     }
 
-    public long getTicks() {
-        return this.finalTicks;
+    //doubled for some reason
+    public static long getTicks() {
+        return finalTicks;
     }
 
 

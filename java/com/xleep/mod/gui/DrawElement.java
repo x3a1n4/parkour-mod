@@ -5,11 +5,15 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import org.lwjgl.opengl.GL11;
 
+import java.awt.*;
 import java.text.DecimalFormat;
 
 import static com.xleep.mod.gui.MainGUI.hexToInt;
@@ -44,11 +48,17 @@ public class DrawElement {
     }
 
     public static void drawCoordElement(int x, int y, String text, int border) {
-        drawCoordElement(x, y, text, border, backgroundColor);
+        drawCoordElement(x, y, text, border, backgroundColor, true);
     }
-    public static void drawCoordElement(int x, int y, String text, int border, int backgroundColor) {
+    public static void drawCoordElement(int x, int y, String text, int border, int backgroundColor, boolean dropShadow) {
         Gui.drawRect(x, y, x + renderer.getStringWidth(text) + 1 * border, y + 7 + 2 * border, backgroundColor);
-        renderer.drawString(text, (x + border), (y + border), 1, true);
+        renderer.drawString(text, (x + border), (y + border), new Color(0, 0, 0, 40).getRGB(), dropShadow);
+    }
+
+    public static void drawTranslucentElement(int x, int y, String text){
+        GlStateManager.enableBlend();
+
+        renderer.drawString(text, x, y, new Color(127, 127, 127, 30).getRGB());
     }
 
     public static void drawKey(int x, int y, int keyX, int keyY, boolean pressed, String text) {

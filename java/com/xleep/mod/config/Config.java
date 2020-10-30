@@ -15,11 +15,11 @@ public class Config {
 
     public static boolean enabledBlocksPerSecond;
 
+    public static boolean enabledCrosshairText;
+
     public static String hhFormat;
 
     public static int coordPrecision;
-
-    public static int crosshairCoordPrecision;
 
     public static String textBackground;
 
@@ -58,6 +58,11 @@ public class Config {
     public static String keyPressedTextColor;
 
     public static String keyPressedBackgroundColor;
+
+    public static String crosshairTextNumberColor;
+    public static String crosshairTextTextColor;
+    public static int crosshairTextSpacing;
+    public static int crosshairFacingPrecision;
 
     public static int locationForwardX;
 
@@ -128,9 +133,9 @@ public class Config {
         enabledKeystrokes = config.getBoolean("enabledKeystrokes", category, true, "Toggles keystrokes");
         enabledBarrierWarning = config.getBoolean("enabledBarrierWarning", category, true, "Toggles the barrier warning");
         enabledBlocksPerSecond = config.getBoolean("enabledBlocksPerSecond", category, false, "Toggles between b/t and b/s");
+        enabledCrosshairText = config.getBoolean("enabledCrosshairText", category, true, "Toggles if crosshair shows text");
         hhFormat = config.getString("hhFormat", category, "HH-Timing: {hhms} ({hhTicks} ticks)", "Changes the text in the hh timing line");
         coordPrecision = config.getInt("coordPrecision", category, 6, 1, 16, "How many decimals of precision to show in player variables");
-        crosshairCoordPrecision = config.getInt("crosshairCoordPrecision", category, 1, 1, 5, "How many decimals of precision to show in player crosshair");
 
         category = "Text Color";
         config.addCustomCategoryComment(category, "Change the color of the GUI text");
@@ -159,6 +164,13 @@ public class Config {
         keyBackgroundColor = config.getString("keyBackgroundColor", category, "#1f1f1f2f", "Changes the background drawn behind the text");
         keyPressedTextColor = config.getString("keyPressedTextColor", category, "#00000000", "Changes the text drawn on the background");
         keyPressedBackgroundColor = config.getString("keyPressedBackgroundColor", category, "#ffffff5f", "Changes the background drawn behind the text");
+
+        category = "Crosshair";
+        config.addCustomCategoryComment(category, "Edit the text shown on crosshair");
+        crosshairTextTextColor = config.getString("crosshairTextColor", category, "8", "Changes the colour of crosshair text");
+        crosshairTextNumberColor = config.getString("crosshairTextColor", category, "7", "Changes the colour of crosshair numbers");
+        crosshairFacingPrecision = config.getInt("crosshairFacingPrecision", category, 1, 0, 3, "Changes the precision of facing on crosshair");
+        crosshairTextSpacing = config.getInt("crosshairTextSpacing", category, 10, 0, 30, "Distance between text and crosshair");
 
         category = "Keystrokes Location";
         config.addCustomCategoryComment(category, "Change the location of each key\nThe origin is the bottom right corner");

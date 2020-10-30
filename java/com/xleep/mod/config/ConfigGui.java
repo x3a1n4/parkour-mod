@@ -18,6 +18,7 @@ public class ConfigGui extends GuiConfig {
         list.add(new ConfigElement(Config.config.getCategory("General".toLowerCase())));
         list.add(new ConfigElement(Config.config.getCategory("Text Color".toLowerCase())));
         list.add(new ConfigElement(Config.config.getCategory("Text Location".toLowerCase())));
+        list.add(new ConfigElement(Config.config.getCategory("Crosshair".toLowerCase())));
         list.add(new ConfigElement(Config.config.getCategory("Keystrokes Color".toLowerCase())));
         list.add(new ConfigElement(Config.config.getCategory("Keystrokes Location".toLowerCase())));
         list.add(new ConfigElement(Config.config.getCategory("Keystrokes Size".toLowerCase())));

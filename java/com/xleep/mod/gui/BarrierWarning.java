@@ -36,6 +36,7 @@ public class BarrierWarning {
         //the "this.mc.theWorld.getBlockState(this.mc.objectMouseOver.getBlockPos()).getBlock().getRegistryName().equals("minecraft:barrier")" crashes the game
         this.lookingAtBarrier = false;
         //do all this to avoid crashes
+        //TODO: mc.theWorld is always null
         if (mc.objectMouseOver != null &&
                 mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK &&
                 mc.objectMouseOver.getBlockPos() != null &&
