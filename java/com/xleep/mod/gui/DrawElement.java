@@ -56,9 +56,16 @@ public class DrawElement {
     }
 
     public static void drawTranslucentElement(int x, int y, String text){
-        GlStateManager.enableBlend();
-
-        renderer.drawString(text, x, y, new Color(127, 127, 127, 30).getRGB());
+        //GlStateManager.enableBlend();
+        GL11.glEnable(GL11.GL_BLEND);
+        //from http://relativity.net.au/gaming/java/Transparency.html
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        //OpenGlHelper.glBlendFunc(770, 771, 1, 0);
+        renderer.drawString(text, x, y, new Color(127, 127, 127, 40).getRGB());
+        //int color = new Color(127, 127, 127, 40).getRGB();
+        //int alpha = 200;
+        //GL11.glDisable(GL11.GL_BLEND);
+        //renderer.drawStringWithShadow(text, x, y, color | (alpha << 24));
     }
 
     public static void drawKey(int x, int y, int keyX, int keyY, boolean pressed, String text) {

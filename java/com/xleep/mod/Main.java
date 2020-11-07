@@ -35,6 +35,7 @@ public class Main
     public void preInit(FMLPreInitializationEvent preEvent) {
         Config.init(preEvent.getSuggestedConfigurationFile());
         MinecraftForge.EVENT_BUS.register(new Config());
+        Keybinds.register();
         //this;
         proxy.preInit(preEvent);
     }
